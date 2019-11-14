@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  height: 100vh;
+  width: 100vw;
+  background: #111723;
 }
 
 .App-logo {
@@ -19,4 +22,38 @@
 
 .App-link {
   color: #09d3ac;
+}
+.standard_navbar {
+  height: 80px;
+  background: #1c212a;
+  color: #fff;
+}
+.standard_form {
+  position: absolute;
+  right: 0;
+  width: 20%;
+}
+.standard_login_button {
+  width: 35%;
+  height: 45px;
+  background-color: #27a745 !important;
+  color: #fff !important;
+  font-family: "Raleway", sans-serif;
+  font-weight: 600 !important;
+  letter-spacing: 0.05rem !important;
+}
+.standard_register_button {
+  margin-right: 8%;
+  width: 35%;
+  height: 45px;
+  font-family: "Raleway", sans-serif;
+  font-weight: 600 !important;
+  letter-spacing: 0.05rem !important;
+}
+.standard_heading {
+  font-family: "Raleway", sans-serif;
+  font-weight: 400 !important;
+  letter-spacing: 0.08rem !important;
+  font-size: 25px !important;
+  margin-left: 1%;
 }
