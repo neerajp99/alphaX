@@ -31,11 +31,13 @@
 .standard_form {
   position: absolute;
   right: 0;
-  width: 20%;
+  float: right !important;
+  min-width: 30%;
+  width: auto !important;
 }
 .standard_login_button {
-  width: 35%;
-  height: 45px;
+  width: 140px;
+  height: 47px;
   background-color: #27a745 !important;
   color: #fff !important;
   font-family: "Raleway", sans-serif;
@@ -44,8 +46,8 @@
 }
 .standard_register_button {
   margin-right: 8%;
-  width: 35%;
-  height: 45px;
+  width: 140px;
+  height: 47px;
   font-family: "Raleway", sans-serif;
   font-weight: 600 !important;
   letter-spacing: 0.05rem !important;
@@ -56,4 +58,97 @@
   letter-spacing: 0.08rem !important;
   font-size: 25px !important;
   margin-left: 1%;
+}
+.form-inline {
+  display: block !important;
+}
+
+/* Landing page css goes here */
+.wrapper {
+  position: absolute;
+  width: 100%;
+  height: 90%;
+}
+.wrapper > div {
+  height: 100%;
+}
+.landing_left {
+  position: absolute !important;
+  background-color: transparent;
+  overflow: auto !important;
+}
+.landing_right {
+  background-color: #202631;
+  float: right;
+  height: 99% !important;
+  margin-top: 10px !important;
+
+  /* margin-left: 200px !important; */
+  margin-right: 10px;
+  border-radius: 15px;
+}
+.ticker_list {
+  margin-top: 10% !important;
+}
+.ticker_list_item {
+  height: 80px !important;
+  background-color: #212c3b !important;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 2px solid #498fdf !important;
+  color: #fff;
+  font-size: 20px;
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.06rem;
+  vertical-align: center;
+  text-align: center !important;
+  line-height: 50px;
+}
+.list-group {
+  margin-top: 10% !important;
+}
+.col-md-9 {
+  max-width: 74.5% !important;
+}
+.ticker_input {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 2px solid #fff !important;
+  border-radius: 0px !important;
+  width: 75% !important;
+  margin-top: 10px !important;
+  font-size: 20px !important;
+  text-transform: uppercase;
+  color: #fff !important;
+
+}
+textarea:hover,
+input:hover,
+textarea:active,
+input:active,
+textarea:focus,
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+select:focus,
+.btn:active,
+.btn.active {
+  outline: 0px !important;
+  -webkit-appearance: none;
+  box-shadow: none !important;
+}
+.ticker_button {
+  border: none !important;
+  margin-top: 10px !important;
+  pointer-events: none !important;
+}
+.ticker_button > svg {
+  /* height: 100px */
+  margin-top: 20px
+}
+.ticker_button: hover {
+  pointer-events: none !important;
 }
