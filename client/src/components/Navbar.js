@@ -5,7 +5,7 @@ class Navbar extends Component {
       <div className="navbar navbar-expand-lg navbar-dark standard_navbar">
       <a className="navbar-brand standard_heading" href="#">
         {" "}
-        Standard Alpha
+        Quant Mafia
       </a>
         <button
           className="navbar-toggler"
