@@ -209,26 +209,71 @@ select:focus,
 
 /* Table css goes here */
 .MuiTableContainer-root {
-  height: 42.5vh !important;
-  margin-top: -15px !important;
+  height: 40.8vh !important;
+  /* margin-top: -15px !important; */
   /* border-bottom-left-radius: 10px; */
+  background: #1e2431 !important;
 }
 .MuiTableBody-root {
   background: #1f2531;
   border: 0px !important;
 }
- .MuiTableCell-body{
+.MuiTableCell-body {
   /* border: 0.008em solid #fff !important; */
   color: #fff !important;
-   border-width: thin;
+  border-width: thin;
+  /* display: none !important; */
 }
-.MuiTableCell-stickyHeader{
+.MuiTableCell-stickyHeader {
   background-color: #1c212a !important;
   color: #fff !important;
 }
-.MuiTablePagination-toolbar{
+.MuiTablePagination-toolbar {
   background-color: #1c212a !important;
   color: #fff !important;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+}
+.makeStyles-root-32 {
+  display: none !important;
+}
+.MuiTableRow-root {
+  height: 0px !important;
+  /* display: none !important; */
+}
+.makeStyles-table-3 {
+  background: #1b202a !important;
+}
+.MuiTable-root {
+  color: #fff !important;
+}
+
+.MuiPaper-elevation1 {
+  background: transparent;
+  height: 48vh !important;
+  background: #1b202a !important;
+  z-index: 12;
+}
+.MuiTableSortLabel-root {
+  color: #fff !important;
+  font-family: "Raleway", sans-serif !important;
+}
+.MuiTableCell-roo {
+  display: none !important;
+}
+.makeStyles-root-1 {
+  margin-top: -1.5vh;
+  height: 50vh !important;
+}
+.PrivateSwitchBase-input-131 {
+  display: none !important;
+}
+.MuiTableCell-paddingCheckbox {
+  display: none !important;
+}
+.MuiTableCell-paddingNone {
+  display: none !important;
+}
+.MuiSvgIcon-root {
+  color: #fff !important;
 }
