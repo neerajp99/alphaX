@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import tickers from "../utils/symbols.json";
 import escapeRegExp from "escape-string-regexp";
-import StickyHeadTable from './tables/Tables'
+import StickyHeadTable from "./tables/Tables";
 
 class Landing extends Component {
   state = {
@@ -73,97 +73,98 @@ class Landing extends Component {
           </ul>
         </div>
         <div className="col-md-10 landing_right">
-          <div className="landing_right_top_main" >
-          <nav>
-            <div className="nav nav-tabs nav-fill full-nav-item" id="nav-tab" role="tablist">
-              <a
-                className="nav-item nav-link active nav_item_text"
-                id="nav-home-tab"
-                data-toggle="tab"
-                href="#chains"
-                role="tab"
-                aria-controls="nav-home"
-                aria-selected="true"
+          <div className="landing_right_top_main">
+            <nav>
+              <div
+                className="nav nav-tabs nav-fill full-nav-item"
+                id="nav-tab"
+                role="tablist"
               >
-                Chain & Greeks
-              </a>
+                <a
+                  className="nav-item nav-link active nav_item_text"
+                  id="nav-home-tab"
+                  data-toggle="tab"
+                  href="#chains"
+                  role="tab"
+                  aria-controls="nav-home"
+                  aria-selected="true"
+                >
+                  Chain & Greeks
+                </a>
 
-              <a
-                className="nav-item nav-link nav_item_text"
-                id="nav-contact-tab"
-                data-toggle="tab"
-                href="#spreads"
-                role="tab"
-                aria-controls="nav-contact"
-                aria-selected="false"
-              >
-                Spreads
-              </a>
-              <a
-                className="nav-item nav-link nav_item_text"
-                id="nav-contact-tab"
-                data-toggle="tab"
-                href="#lab"
-                role="tab"
-                aria-controls="nav-contact"
-                aria-selected="false"
-              >
-                Lab
-              </a>
-              <a
-                className="nav-item nav-link nav_item_text"
-                id="nav-contact-tab"
-                data-toggle="tab"
-                href="#test"
-                role="tab"
-                aria-controls="nav-contact"
-                aria-selected="false"
-              >
-                Test
-              </a>
-            </div>
-          </nav>
+                <a
+                  className="nav-item nav-link nav_item_text"
+                  id="nav-contact-tab"
+                  data-toggle="tab"
+                  href="#spreads"
+                  role="tab"
+                  aria-controls="nav-contact"
+                  aria-selected="false"
+                >
+                  Spreads
+                </a>
+                <a
+                  className="nav-item nav-link nav_item_text"
+                  id="nav-contact-tab"
+                  data-toggle="tab"
+                  href="#lab"
+                  role="tab"
+                  aria-controls="nav-contact"
+                  aria-selected="false"
+                >
+                  Lab
+                </a>
+                <a
+                  className="nav-item nav-link nav_item_text"
+                  id="nav-contact-tab"
+                  data-toggle="tab"
+                  href="#test"
+                  role="tab"
+                  aria-controls="nav-contact"
+                  aria-selected="false"
+                >
+                  Test
+                </a>
+              </div>
+            </nav>
 
-          <div className="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-            <div
-              className="tab-pane fade show active mafia_main_content"
-              id="chains"
-              role="tabpanel"
-              aria-labelledby="nav-home-tab"
-            >
-            <StickyHeadTable/>
-            </div>
+            <div className="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+              <div
+                className="tab-pane fade show active mafia_main_content"
+                id="chains"
+                role="tabpanel"
+                aria-labelledby="nav-home-tab"
+              >
+                <StickyHeadTable />
+              </div>
 
-            <div
-              className="tab-pane fade mafia_main_content"
-              id="spreads"
-              role="tabpanel"
-              aria-labelledby="nav-contact-tab"
-            >
-              oaooaoa
-            </div>
-            <div
-              className="tab-pane fade mafia_main_content"
-              id="lab"
-              role="tabpanel"
-              aria-labelledby="nav-contact-tab"
-            >
-              koishore
-            </div>
-            <div
-              className="tab-pane fade mafia_main_content"
-              id="test"
-              role="tabpanel"
-              aria-labelledby="nav-contact-tab"
-            >
-              mitaals
+              <div
+                className="tab-pane fade mafia_main_content"
+                id="spreads"
+                role="tabpanel"
+                aria-labelledby="nav-contact-tab"
+              >
+                oaooaoa
+              </div>
+              <div
+                className="tab-pane fade mafia_main_content"
+                id="lab"
+                role="tabpanel"
+                aria-labelledby="nav-contact-tab"
+              >
+                koishore
+              </div>
+              <div
+                className="tab-pane fade mafia_main_content"
+                id="test"
+                role="tabpanel"
+                aria-labelledby="nav-contact-tab"
+              >
+                mitaals
+              </div>
             </div>
           </div>
-          </div>
-          <div className="landing_right_bottom_main">
-            lalala
-          </div>
-
+          <div className="landing_right_bottom_main">lalala</div>
         </div>
       </div>
     );
