@@ -78,32 +78,35 @@
   overflow: auto !important;
 }
 .landing_right {
-  background-color: #202631;
+  background-color: transparent;
   float: right;
   height: 99% !important;
   margin-top: 10px !important;
-
-  /* margin-left: 200px !important; */
-  margin-right: 10px;
-  border-radius: 15px;
+  /* left: 4%; */
+  /* margin-left: -200px !important; */
+  margin-right: 15px !important ;
+  /* padding-right: -100px !important; */
+  border-radius: 10px;
+  width: 81.5% !important;
 }
 .ticker_list {
   margin-top: 10% !important;
 }
 .ticker_list_item {
-  height: 80px !important;
+  height: 45px !important;
   background-color: #212c3b !important;
-  margin-top: 10px;
-  border-radius: 5px;
-  border: 2px solid #498fdf !important;
+  margin-top: 13px;
+  border-radius: 2px;
+  border: 1px solid #498fdf !important;
   color: #fff;
-  font-size: 20px;
+  font-size: 15px;
   font-family: "Raleway", sans-serif;
   font-weight: 600;
   letter-spacing: 0.06rem;
   vertical-align: center;
   text-align: center !important;
-  line-height: 50px;
+  line-height: 20px;
+  left: 8px;
 }
 .list-group {
   margin-top: 10% !important;
@@ -116,12 +119,12 @@
   border: none !important;
   border-bottom: 2px solid #fff !important;
   border-radius: 0px !important;
-  width: 75% !important;
+  width: 70% !important;
   margin-top: 10px !important;
-  font-size: 20px !important;
+  font-size: 17px !important;
   text-transform: uppercase;
   color: #fff !important;
-
+  margin-left: 10px;
 }
 textarea:hover,
 input:hover,
@@ -147,8 +150,85 @@ select:focus,
 }
 .ticker_button > svg {
   /* height: 100px */
-  margin-top: 20px
+  margin-top: 20px;
 }
 .ticker_button: hover {
   pointer-events: none !important;
+}
+
+.full-nav-item {
+  width: 81.475vw !important;
+  /* margin-left: -15px !important; */
+  border-bottom: 0px !important;
+}
+
+.nav_item_text {
+  background: #1c212a;
+  height: 60px !important;
+  border: 0px !important;
+  color: #fff;
+  font-family: "Raleway", sans-serif;
+  line-height: 40px;
+  font-size: 18px;
+  font-weight: 600;
+  border-bottom: 0px !important;
+  text-decoration: none !important;
+  /* margin-top: 2vh; */
+}
+.nav_item_text:hover {
+  color: #fff !important;
+}
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  background-color: #1f2531 !important;
+  color: #498fde !important;
+}
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active:hover {
+  color: #498fde !important;
+}
+.mafia_main_content {
+  color: #fff;
+}
+.landing_right_top_main {
+  height: 55vh !important;
+  background: #202631;
+  width: 81.47vw !important;
+  margin-left: -15px !important;
+  border-radius: 10px;
+  /* position: absolute; */
+}
+.landing_right_bottom_main {
+  margin-top: 1vh;
+  height: 32vh !important;
+  background: #202631;
+  width: 81.47vw !important;
+  margin-left: -15px !important;
+  border-radius: 10px;
+}
+
+/* Table css goes here */
+.MuiTableContainer-root {
+  height: 42.5vh !important;
+  margin-top: -15px !important;
+  /* border-bottom-left-radius: 10px; */
+}
+.MuiTableBody-root {
+  background: #1f2531;
+  border: 0px !important;
+}
+ .MuiTableCell-body{
+  /* border: 0.008em solid #fff !important; */
+  color: #fff !important;
+   border-width: thin;
+}
+.MuiTableCell-stickyHeader{
+  background-color: #1c212a !important;
+  color: #fff !important;
+}
+.MuiTablePagination-toolbar{
+  background-color: #1c212a !important;
+  color: #fff !important;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
