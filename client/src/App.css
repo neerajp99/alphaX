@@ -107,6 +107,7 @@
   text-align: center !important;
   line-height: 20px;
   left: 8px;
+  cursor: pointer;
 }
 .list-group {
   margin-top: 10% !important;
@@ -205,6 +206,7 @@ select:focus,
   width: 81.47vw !important;
   margin-left: -15px !important;
   border-radius: 10px;
+  overflow-y: hidden
 }
 
 /* Table css goes here */
@@ -277,6 +279,51 @@ select:focus,
 .MuiSvgIcon-root {
   color: #fff !important;
 }
-.active_ticker{
-  background: red !important;
+.ticker_name_button {
+  position: absolute;
+  left: 1%;
+  margin-top: 0.5%;
+  height: 5%;
+  width: auto;
+  min-width: 8%;
+  background: #202b3b;
+  border: 2px solid #498fde;
+  color: #fff;
+  font-family: "Raleway", serif;
+  padding-left: 14px;
+  padding-right: 14px;
+}
+.positions_tasks_heading{
+  text-align: right;
+  font-family: "Raleway", serif;
+  color: #fff;
+  position: relative;
+  top: 5%;
+  right: 2%;
+  opacity: 0.9;
+  font-weight: 400;
+  font-size: 18px;
+}
+.positions_tasks_hr{
+  width: 12vw;
+  text-align: right;
+  background-color: #fff;
+  opacity: 0.7;
+  position: absolute;
+  right: 3vw;
+  margin-top: 2%;
+}
+.positions_tasks_table{
+  background-color: red;
+  height: 5vh !important;
+}
+#positions_tasks_tables{
+  height: 160px !important;
+}
+.MuiTableCell-root{
+  cursor: pointer;
+
+}
+.MuiTableCell-root:hover{
+  background: #1b202a;
 }
