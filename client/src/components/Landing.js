@@ -5,7 +5,16 @@ import StickyHeadTable from "./tables/Tables";
 
 class Landing extends Component {
   state = {
-    ticker: ""
+    ticker: "",
+    currentTicker: ""
+  };
+
+  // on click ticker function to make the changes to the styles
+  onClickTicker = event => {
+    console.log(event.currentTarget.dataset.id);
+    this.setState({
+      currentTicker: "active_ticker"
+    });
   };
 
   // If a user search something, change the query state
@@ -65,7 +74,13 @@ class Landing extends Component {
           <ul className="tickers_list list-group">
             {showingTickers.map((ticker, index) => {
               return (
-                <li key={index} className="ticker_list_item list-group-item">
+                <li
+                  key={index}
+                  className="ticker_list_item list-group-item active"
+                  name={ticker["SYMBOL"]}
+                  data-id={ticker["SYMBOL"]}
+                  onClick={this.onClickTicker}
+                >
                   {ticker["SYMBOL"]}
                 </li>
               );

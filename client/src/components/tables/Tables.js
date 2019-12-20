@@ -497,6 +497,8 @@ export default function EnhancedTable() {
           page={page}
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
+          labelRowsPerPage="Rows per head"
+          
         />
       </Paper>
     </div>

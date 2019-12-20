@@ -277,3 +277,6 @@ select:focus,
 .MuiSvgIcon-root {
   color: #fff !important;
 }
+.active_ticker{
+  background: red !important;
+}
