@@ -20,8 +20,11 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { getValues } from "../../actions/valuesAction";
+import { useDispatch, useSelector } from "react-redux";
 const data = require("../utils/data.json");
-
 
 function createData(
   call_bid,
@@ -350,7 +353,7 @@ const useStyles = makeStyles(theme => ({
 }));
 const options = [];
 
-export default function EnhancedTable() {
+export const EnhancedTable = () => {
   console.log(rows);
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
@@ -360,6 +363,8 @@ export default function EnhancedTable() {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(50);
   const optionsState = React.useState([]);
+  const values = useSelector(state => state.values);
+  const dispatch = useDispatch();
 
   const handleRequestSort = (event, property) => {
     const isDesc = orderBy === property && order === "desc";
@@ -418,7 +423,8 @@ export default function EnhancedTable() {
     console.log(row, value);
     options.push(row);
     optionsState.push(options);
-    console.log(optionsState);
+    console.log(values);
+    dispatch(getValues(optionsState));
   };
 
   return (
@@ -532,6 +538,15 @@ export default function EnhancedTable() {
         />
       </Paper>
     </div>
-
   );
-}
+};
+
+const mapStateToProps = state => ({
+  values: state.values
+});
+const mapDispatchToProps = { getValues };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(EnhancedTable));
