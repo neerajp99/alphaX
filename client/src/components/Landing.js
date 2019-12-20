@@ -1,19 +1,21 @@
 import React, { Component } from "react";
 import tickers from "../utils/symbols.json";
 import escapeRegExp from "escape-string-regexp";
-import StickyHeadTable from "./tables/Tables";
+import EnhancedTableHead from "./tables/Tables";
+import StickyHeadTable from "./tables/Table"
+import RiskProfile from './graphs/RiskProfile'
 
 class Landing extends Component {
   state = {
     ticker: "",
-    currentTicker: ""
+    currentTicker: "BANKNIFTY"
   };
 
   // on click ticker function to make the changes to the styles
   onClickTicker = event => {
     console.log(event.currentTarget.dataset.id);
     this.setState({
-      currentTicker: "active_ticker"
+      currentTicker: event.currentTarget.dataset.id
     });
   };
 
@@ -150,7 +152,7 @@ class Landing extends Component {
                 role="tabpanel"
                 aria-labelledby="nav-home-tab"
               >
-                <StickyHeadTable />
+                <EnhancedTableHead/>
               </div>
 
               <div
@@ -159,7 +161,7 @@ class Landing extends Component {
                 role="tabpanel"
                 aria-labelledby="nav-contact-tab"
               >
-                oaooaoa
+                <RiskProfile/>
               </div>
               <div
                 className="tab-pane fade mafia_main_content"
@@ -179,7 +181,14 @@ class Landing extends Component {
               </div>
             </div>
           </div>
-          <div className="landing_right_bottom_main">lalala</div>
+          <div className="landing_right_bottom_main">
+            <button className="ticker_name_button">{this.state.currentTicker}</button>
+            <h5 className="positions_tasks_heading">Positions and Simulated Tasks</h5>
+            /*{<hr className="positions_tasks_hr"/>}*/
+            <br/>
+            <StickyHeadTable />;
+
+          </div>
         </div>
       </div>
     );
