@@ -1,7 +1,7 @@
 import { GET_ERRORS, GET_VALUES } from "./types";
 
 // Dispatch table values
-export const sendValues = data => dispatch => {
+export const getValues = data => dispatch => {
   if (data) {
     console.log(data);
     dispatch({
