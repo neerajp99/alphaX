@@ -223,6 +223,14 @@ class RiskProfile extends React.PureComponent {
           }
         },
         yAxis: {
+          title: {
+            enabled: true,
+            text: "Prices",
+            style: {
+              fontWeight: "normal",
+              color: "#fff"
+            }
+          },
           labels: {
             style: {
               color: "#fff"
