@@ -10,6 +10,7 @@
     "escape-string-regexp": "^2.0.0",
     "highcharts": "^8.0.0",
     "highcharts-react-official": "^2.2.2",
+    "prop-types": "^15.7.2",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-redux": "^7.1.3",
