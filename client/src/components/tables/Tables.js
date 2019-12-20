@@ -20,7 +20,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
-const data = require('../utils/data.json')
+const data = require("../utils/data.json");
+
 
 function createData(
   call_bid,
@@ -106,8 +107,6 @@ data.map(d => {
     puts_theta
   });
 });
-
-
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -222,7 +221,6 @@ function EnhancedTableHead(props) {
           <Checkbox
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={numSelected === rowCount}
-            onChange={onSelectAllClick}
             inputProps={{ "aria-label": "select all desserts" }}
           />
         </TableCell>
@@ -350,9 +348,10 @@ const useStyles = makeStyles(theme => ({
     width: 1
   }
 }));
+const options = [];
 
 export default function EnhancedTable() {
-  console.log(rows)
+  console.log(rows);
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
@@ -360,6 +359,7 @@ export default function EnhancedTable() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(50);
+  const optionsState = React.useState([]);
 
   const handleRequestSort = (event, property) => {
     const isDesc = orderBy === property && order === "desc";
@@ -414,6 +414,13 @@ export default function EnhancedTable() {
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
+  const onClickSaveValue = (row, value) => {
+    console.log(row, value);
+    options.push(row);
+    optionsState.push(options);
+    console.log(optionsState);
+  };
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -465,8 +472,18 @@ export default function EnhancedTable() {
                       >
                         {row.name}
                       </TableCell>
-                      <TableCell align="right">{row.call_bid}</TableCell>
-                      <TableCell align="right">{row.call_ask}</TableCell>
+                      <TableCell
+                        align="right"
+                        onClick={onClickSaveValue.bind(this, row, "call_bid")}
+                      >
+                        {row.call_bid}
+                      </TableCell>
+                      <TableCell
+                        align="right"
+                        onClick={onClickSaveValue.bind(this, row, "call_ask")}
+                      >
+                        {row.call_ask}
+                      </TableCell>
                       <TableCell align="right">{row.call_volume}</TableCell>
                       <TableCell align="right">{row.call_iv}</TableCell>
                       <TableCell align="right">{row.call_delta}</TableCell>
@@ -475,8 +492,22 @@ export default function EnhancedTable() {
                       <TableCell align="right">{row.call_theta}</TableCell>
                       <TableCell align="right">{row.strike}</TableCell>
                       <TableCell align="right">{row.expiry}</TableCell>
-                      <TableCell align="right">{row.puts_bid}</TableCell>
-                      <TableCell align="right">{row.puts_ask}</TableCell>
+                      <TableCell
+                        align="right"
+                        onClick={onClickSaveValue.bind(this, row, "puts_bid")}
+                      >
+                        {row.puts_bid}
+                      </TableCell>
+                      <TableCell
+                        align="right"
+                        onClick={onClickSaveValue.bind(
+                          this,
+                          row,
+                          "puts_bid_ask"
+                        )}
+                      >
+                        {row.puts_ask}
+                      </TableCell>
                       <TableCell align="right">{row.puts_volume}</TableCell>
                       <TableCell align="right">{row.puts_iv}</TableCell>
                       <TableCell align="right">{row.puts_delta}</TableCell>
@@ -498,9 +529,9 @@ export default function EnhancedTable() {
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
           labelRowsPerPage="Rows per head"
-          
         />
       </Paper>
     </div>
+
   );
 }
