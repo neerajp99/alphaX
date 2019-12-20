@@ -206,7 +206,7 @@ select:focus,
   width: 81.47vw !important;
   margin-left: -15px !important;
   border-radius: 10px;
-  overflow-y: hidden
+  overflow-y: hidden;
 }
 
 /* Table css goes here */
@@ -293,7 +293,7 @@ select:focus,
   padding-left: 14px;
   padding-right: 14px;
 }
-.positions_tasks_heading{
+.positions_tasks_heading {
   text-align: right;
   font-family: "Raleway", serif;
   color: #fff;
@@ -304,7 +304,7 @@ select:focus,
   font-weight: 400;
   font-size: 18px;
 }
-.positions_tasks_hr{
+.positions_tasks_hr {
   width: 12vw;
   text-align: right;
   background-color: #fff;
@@ -313,17 +313,16 @@ select:focus,
   right: 3vw;
   margin-top: 2%;
 }
-.positions_tasks_table{
+.positions_tasks_table {
   background-color: red;
   height: 5vh !important;
 }
-#positions_tasks_tables{
+#positions_tasks_tables {
   height: 160px !important;
 }
-.MuiTableCell-root{
+.MuiTableCell-root {
   cursor: pointer;
-
 }
-.MuiTableCell-root:hover{
+.MuiTableCell-root:hover {
   background: #1b202a;
 }
