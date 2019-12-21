@@ -485,13 +485,25 @@ export const EnhancedTable = () => {
                       </TableCell>
                       <TableCell
                         align="right"
-                        onClick={onClickSaveValue.bind(this, row, "call_bid", "SELL", "CE")}
+                        onClick={onClickSaveValue.bind(
+                          this,
+                          row,
+                          "call_bid",
+                          "SELL",
+                          "CE"
+                        )}
                       >
                         {row.call_bid}
                       </TableCell>
                       <TableCell
                         align="right"
-                        onClick={onClickSaveValue.bind(this, row, "call_ask", "BUY", "CE")}
+                        onClick={onClickSaveValue.bind(
+                          this,
+                          row,
+                          "call_ask",
+                          "BUY",
+                          "CE"
+                        )}
                       >
                         {row.call_ask}
                       </TableCell>
@@ -505,13 +517,25 @@ export const EnhancedTable = () => {
                       <TableCell align="right">{row.expiry}</TableCell>
                       <TableCell
                         align="right"
-                        onClick={onClickSaveValue.bind(this, row, "puts_bid", "SELL", "PE")}
+                        onClick={onClickSaveValue.bind(
+                          this,
+                          row,
+                          "puts_bid",
+                          "SELL",
+                          "PE"
+                        )}
                       >
                         {row.puts_bid}
                       </TableCell>
                       <TableCell
                         align="right"
-                        onClick={onClickSaveValue.bind(this, row, "puts_ask", "BUY", "PE")}
+                        onClick={onClickSaveValue.bind(
+                          this,
+                          row,
+                          "puts_ask",
+                          "BUY",
+                          "PE"
+                        )}
                       >
                         {row.puts_ask}
                       </TableCell>

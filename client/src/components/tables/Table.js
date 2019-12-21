@@ -10,6 +10,7 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import { getValues } from "../../actions/valuesAction";
 import { useDispatch, useSelector } from "react-redux";
+const net = require("net");
 
 const columns = [
   {
@@ -238,6 +239,58 @@ export default function StickyHeadTable() {
     }
   }
 
+  // Send Request to the python server for risk profile values
+  const sendRiskProfileValues = () => {
+    const socket = new WebSocket("ws://localhost:9090");
+
+    socket.addEventListener("open", event => {
+      const toSend = {
+        no_legs: 4,
+        Legs: [
+          {
+            underlying: "banknifty",
+            expiry: "26dec2019",
+            quantity: 1,
+            opt_type: "C",
+            strike: 32200,
+            price: 300.85
+          },
+          {
+            underlying: "banknifty",
+            expiry: "26dec2019",
+            quantity: 1,
+            opt_type: "P",
+            strike: 32200,
+            price: 167.9
+          },
+          {
+            underlying: "banknifty",
+            expiry: "26dec2019",
+            quantity: 2,
+            opt_type: "P",
+            strike: 31300,
+            price: 18.2
+          },
+          {
+            underlying: "banknifty",
+            expiry: "26dec2019",
+            quantity: -3,
+            opt_type: "P",
+            strike: 30900,
+            price: 10.0
+          }
+        ],
+        net_credit_debit: 0
+      };
+      socket.send(JSON.stringify(toSend));
+    });
+
+    // Listen for messages
+    socket.addEventListener("message", event => {
+      console.log("Message from server ", event.data);
+    });
+  };
+
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container} id="positions_tasks_tables">
@@ -298,7 +351,9 @@ export default function StickyHeadTable() {
           Net Debit/Credit: {netDebitCreditState[0]}
         </h6>
       </span>
-      <button className="get_graph_button">Risk Profile Graph</button>
+      <button className="get_graph_button" onClick={sendRiskProfileValues}>
+        Risk Profile Graph
+      </button>
     </Paper>
   );
 }
