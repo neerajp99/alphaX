@@ -365,6 +365,9 @@ export const EnhancedTable = () => {
   const optionsState = React.useState([]);
   const values = useSelector(state => state.values);
   const dispatch = useDispatch();
+  React.useEffect(() => {
+    console.log("fukkk");
+  });
 
   const handleRequestSort = (event, property) => {
     const isDesc = orderBy === property && order === "desc";
@@ -421,10 +424,11 @@ export const EnhancedTable = () => {
 
   const onClickSaveValue = (row, value) => {
     console.log(row, value);
-    options.push(row);
+    options.push([row, value]);
     optionsState.push(options);
-    console.log(values);
+    // console.log('kakakakak', values.values[2])
     dispatch(getValues(optionsState));
+    // localStorage.setItem("Values", values.values[2]);
   };
 
   return (
@@ -506,11 +510,7 @@ export const EnhancedTable = () => {
                       </TableCell>
                       <TableCell
                         align="right"
-                        onClick={onClickSaveValue.bind(
-                          this,
-                          row,
-                          "puts_bid_ask"
-                        )}
+                        onClick={onClickSaveValue.bind(this, row, "puts_ask")}
                       >
                         {row.puts_ask}
                       </TableCell>
