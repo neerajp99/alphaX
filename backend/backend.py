@@ -289,51 +289,34 @@ def get_payoff_data(no_of_legs, legs_data):
 get_payoff_data(4, legs_data).to_json()
 
 
-# In[ ]:
+import asyncio
+import websockets
 
+async def options_analysis(websocket, path):
+    #Receiving Data
+    name = await websocket.recv()
+    loaded = json.loads(name)
+            
+    #Create a dataframe with all the legs
+    legs_data=pd.DataFrame(loaded['Legs'])
 
-class instance_s:
-    def __init__(self, addr, sock):
-        self.addr = addr
-        self.sock = sock
+    #Get output
+    data = get_payoff_data(loaded['no_legs'], legs_data)
 
-    def handle(self):
-        try:
-            # Receive Data and parse json from it
-            self.data = self.sock.recv(1024).strip()
-            loaded = json.loads(self.data)
+    #Create dict to send and add components
+    tosend = {}
+    tosend['underlying_price'] = list(data.index)
+    tosend['current_payoff'] = list(data['current_payoff'])
+    tosend['expiry_payoff'] = list(data['expiry_payoff'])
 
-            # Create a dataframe with all the legs
-            legs_data = pd.DataFrame(loaded['Legs'])
+    #Call the payoff analysis function and convert its output to json
+    tosend = json.dumps(tosend)
 
-            # Call the payoff analysis function and convert its output to json
-            tosend = get_payoff_data(loaded['no_legs'], legs_data).to_json()
-            print(tosend)
+    #Sending data
+    await websocket.send(tosend)
 
-            # Send back json
-            self.sock.sendall(bytes(json.dumps(tosend), "utf-8"))
-            self.sock.close()
-            print("Closed Connection From : ", self.addr)
-        except:
-            pass
+start_server = websockets.serve(options_analysis, "localhost", 9090)
 
+asyncio.get_event_loop().run_until_complete(start_server)
+asyncio.get_event_loop().run_forever()
 
-s = socket.socket()
-
-port = 9090
-s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-s.bind(('', port))  # Not binding to specific IP
-
-print("Server running on : ", port)  # Succeful binding
-
-s.listen()  # Start listening
-print("Socket is listening")
-
-while(True):
-    sock, addr = s.accept()
-    print("New Connection From : ", addr)
-    # New instance of class to handle each connection simultaneously
-    ins = instance_s(addr, sock)
-    # Start new thread for each new connection
-    thread = threading.Thread(target=ins.handle)
-    thread.start()  # Thread started
