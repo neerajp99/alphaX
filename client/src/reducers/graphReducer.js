@@ -1,7 +1,7 @@
-import { GET_ERRORS, GET_GRAPH_DATA } from "../actions/graphsAction";
+import { GET_ERRORS, GET_GRAPH_DATA } from "../actions/types";
 
 const initialState = {
-  graphValues: []
+  graphValues: {}
 };
 
 export default function(state = initialState, action) {
