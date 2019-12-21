@@ -312,6 +312,7 @@ select:focus,
   position: absolute;
   right: 3vw;
   margin-top: 2%;
+  display: none !important;
 }
 .positions_tasks_table {
   background-color: red;
@@ -325,4 +326,30 @@ select:focus,
 }
 .MuiTableCell-root:hover {
   background: #1b202a;
+}
+.lmao:nth-child(1) {
+  display: none !important;
+}
+#lmao2{
+  background-color: #26a745 !important;
+}
+.get_graph_button {
+  position: absolute;
+  margin-top: -3% !important;
+  margin-left: -30% !important;
+  height: 5vh;
+  font-family: "Raleway", serif;
+  background: transparent;
+  color: #488edc;
+  font-weight: 600;
+  border: 2px solid #488edc;
+}
+.net_Debit_credit_heading {
+  position: absolute;
+  margin-top: -2%;
+  font-size: 16px;
+  color: #fff;
+  font-family: "Raleway", serif;
+  margin-left: 2% !important;
+  font-weight: 400;
 }
