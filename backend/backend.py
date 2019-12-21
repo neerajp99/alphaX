@@ -5,6 +5,8 @@
 
 
 # Import Libraries
+import websockets
+import asyncio
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -226,7 +228,13 @@ def get_payoff_data(no_of_legs, legs_data):
     # Iterate over no. of legs
     for x in range(no_of_legs):
         # Get parameter values of this leg from dataframe
-        underlying, expiry, quantity, opt_type, strike, price = legs_data.loc[x].values
+        # underlying, expiry, quantity, opt_type, strike, price = legs_data.loc[x].values
+        underlying = legs_data.loc[x]['underlying']
+        expiry = legs_data.loc[x]['expiry']
+        opt_type = legs_data.loc[x]['opt_type']
+        quantity = legs_data.loc[x]['quantity']
+        strike = legs_data.loc[x]['strike']
+        price = legs_data.loc[x]['price']
         # Create objects for each leg
         leg_objects.append(
             Leg(underlying, expiry, quantity, opt_type, strike, price))
@@ -289,34 +297,30 @@ def get_payoff_data(no_of_legs, legs_data):
 get_payoff_data(4, legs_data).to_json()
 
 
-import asyncio
-import websockets
-
 async def options_analysis(websocket, path):
-    #Receiving Data
+    # Receiving Data
     name = await websocket.recv()
     loaded = json.loads(name)
-            
-    #Create a dataframe with all the legs
-    legs_data=pd.DataFrame(loaded['Legs'])
 
-    #Get output
+    # Create a dataframe with all the legs
+    legs_data = pd.DataFrame(loaded['Legs'])
+
+    # Get output
     data = get_payoff_data(loaded['no_legs'], legs_data)
 
-    #Create dict to send and add components
+    # Create dict to send and add components
     tosend = {}
     tosend['underlying_price'] = list(data.index)
     tosend['current_payoff'] = list(data['current_payoff'])
     tosend['expiry_payoff'] = list(data['expiry_payoff'])
 
-    #Call the payoff analysis function and convert its output to json
+    # Call the payoff analysis function and convert its output to json
     tosend = json.dumps(tosend)
 
-    #Sending data
+    # Sending data
     await websocket.send(tosend)
 
 start_server = websockets.serve(options_analysis, "localhost", 9090)
 
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()
-
