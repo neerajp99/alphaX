@@ -128,7 +128,19 @@ export default function StickyHeadTable() {
 
       const strike = data[0].strike;
       const expiry = data[0].expiry;
-      const price = 1;
+      let price = 0;
+      if (data[1] === "call_ask") {
+        price -= data[0].call_ask;
+      }
+      if (data[1] === "call_bid") {
+        price += data[0].call_bid;
+      }
+      if (data[1] === "puts_ask") {
+        price -= data[0].puts_ask;
+      }
+      if (data[1] === "puts_bid") {
+        price += data[0].puts_bid;
+      }
       const qty = 2;
 
       rows.push({
