@@ -10,6 +10,7 @@
     "escape-string-regexp": "^2.0.0",
     "highcharts": "^8.0.0",
     "highcharts-react-official": "^2.2.2",
+    "net": "^1.0.2",
     "prop-types": "^15.7.2",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
@@ -18,7 +19,8 @@
     "react-scripts": "3.2.0",
     "react-virtualized": "^9.21.2",
     "redux": "^4.0.4",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "ws": "^7.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
