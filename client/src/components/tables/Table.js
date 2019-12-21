@@ -93,29 +93,36 @@ export default function StickyHeadTable() {
     setPage(0);
   };
 
+  // net debit/credit state
+  const netDebitCreditState = React.useState(0);
+
   // const options
   const optionsState = React.useState([]);
 
   // Get state values
   const values = useSelector(state => state.values);
   const dispatch = useDispatch();
+  // Toggle css state
+  const [toggleCSSState, setValue] = React.useState("lmao3");
+
   React.useEffect(() => {
-    console.log("VALUES", values.values);
-    // optionsState.push(values)
-    // console.log("VALUES State", optionsState)
-    // console.log(rows);
+    if (netDebitCreditState[0] > 0) {
+      setValue("lmao2");
+    } else {
+      setValue("lmao3");
+    }
   });
 
-  // Table values here
-  const rowss = [
-    createData("values", "PE", 102, "10/06/19", 4, -2),
-    createData("BANKIFTY", "PE", 102, "10/06/19", 4, -2),
-    createData("BANKIFTY", "PE", 102, "10/06/19", 4, -2),
-    createData("BANKIFTY", "PE", 102, "10/06/19", 4, -2),
-    createData("BANKIFTY", "PE", 102, "10/06/19", 4, -2)
-  ];
-
   const rows = [];
+  rows[0] = {
+    ticker: "",
+    opt_type: "",
+    opt_side: "",
+    strike: "",
+    expiry: "",
+    price: "",
+    qty: ""
+  };
   let ctr = 0;
   let net_debit_credit = 0;
   let change_counter;
@@ -123,17 +130,18 @@ export default function StickyHeadTable() {
   if (values.values.length > 0) {
     // console.log('ROWS', rows.length)
     values.values[2].map(data => {
-      console.log("ROWSSS", rows);
       for (let i = 0; i < rows.length; i++) {
         console.log("DATA", data);
+        console.log("VALUE OF EYE", i);
+        console.log(rows[i]);
 
-        // If values are from CE, BUY
         if (
           data[0].strike === rows[i].strike &&
           data[1] === "call_ask" &&
           data[2] === rows[i].opt_side &&
           data[3] === rows[i].opt_type
         ) {
+          console.log("kakak");
           change_counter = i;
           data_price = -data[0].call_ask;
         }
@@ -176,6 +184,7 @@ export default function StickyHeadTable() {
         Math.sign(rows[change_counter].qty) === -1
           ? (rows[change_counter].qty -= 1)
           : (rows[change_counter].qty += 1);
+        netDebitCreditState[0] += data_price;
         change_counter = undefined;
         data_price = undefined;
       } else {
@@ -219,10 +228,14 @@ export default function StickyHeadTable() {
           price,
           qty
         });
+        netDebitCreditState[0] += price;
       }
 
       ctr++;
     });
+    if (netDebitCreditState >= 0) {
+      toggleCSSState = "lmao2";
+    }
   }
 
   return (
@@ -247,7 +260,14 @@ export default function StickyHeadTable() {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map(row => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                  <TableRow
+                    hover
+                    role="checkbox"
+                    tabIndex={-1}
+                    key={row.code}
+                    className="lmao"
+                    id={toggleCSSState}
+                  >
                     {columns.map(column => {
                       const value = row[column.id];
                       return (
@@ -273,6 +293,12 @@ export default function StickyHeadTable() {
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
+      <span>
+        <h6 className="net_Debit_credit_heading">
+          Net Debit/Credit: {netDebitCreditState[0]}
+        </h6>
+      </span>
+      <button className="get_graph_button">Risk Profile Graph</button>
     </Paper>
   );
 }
