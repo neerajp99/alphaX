@@ -354,7 +354,7 @@ const useStyles = makeStyles(theme => ({
 const options = [];
 
 export const EnhancedTable = () => {
-  console.log(rows);
+  // console.log(rows);
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
@@ -366,7 +366,7 @@ export const EnhancedTable = () => {
   const values = useSelector(state => state.values);
   const dispatch = useDispatch();
   React.useEffect(() => {
-    console.log("fukkk");
+    // console.log("fukkk");
   });
 
   const handleRequestSort = (event, property) => {
@@ -422,9 +422,9 @@ export const EnhancedTable = () => {
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
-  const onClickSaveValue = (row, value) => {
-    console.log(row, value);
-    options.push([row, value]);
+  const onClickSaveValue = (row, value, a, b) => {
+    // console.log(row, value);
+    options.push([row, value, a, b]);
     optionsState.push(options);
     // console.log('kakakakak', values.values[2])
     dispatch(getValues(optionsState));
@@ -460,6 +460,7 @@ export const EnhancedTable = () => {
 
                   return (
                     <TableRow
+                      key={index}
                       hover
                       onClick={event => handleClick(event, row.name)}
                       role="checkbox"
@@ -484,13 +485,13 @@ export const EnhancedTable = () => {
                       </TableCell>
                       <TableCell
                         align="right"
-                        onClick={onClickSaveValue.bind(this, row, "call_bid")}
+                        onClick={onClickSaveValue.bind(this, row, "call_bid", "SELL", "CE")}
                       >
                         {row.call_bid}
                       </TableCell>
                       <TableCell
                         align="right"
-                        onClick={onClickSaveValue.bind(this, row, "call_ask")}
+                        onClick={onClickSaveValue.bind(this, row, "call_ask", "BUY", "CE")}
                       >
                         {row.call_ask}
                       </TableCell>
@@ -504,13 +505,13 @@ export const EnhancedTable = () => {
                       <TableCell align="right">{row.expiry}</TableCell>
                       <TableCell
                         align="right"
-                        onClick={onClickSaveValue.bind(this, row, "puts_bid")}
+                        onClick={onClickSaveValue.bind(this, row, "puts_bid", "SELL", "PE")}
                       >
                         {row.puts_bid}
                       </TableCell>
                       <TableCell
                         align="right"
-                        onClick={onClickSaveValue.bind(this, row, "puts_ask")}
+                        onClick={onClickSaveValue.bind(this, row, "puts_ask", "BUY", "PE")}
                       >
                         {row.puts_ask}
                       </TableCell>

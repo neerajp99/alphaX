@@ -24,6 +24,12 @@ const columns = [
     align: "center"
   },
   {
+    id: "opt_side",
+    label: "Side",
+    minWidth: 100,
+    align: "center"
+  },
+  {
     id: "strike",
     label: "Strike",
     minWidth: 100,
@@ -60,8 +66,8 @@ const columns = [
   }}*/
 ];
 
-function createData(ticker, opt_type, strike, expiry, price, qty) {
-  return { ticker, opt_type, strike, expiry, price, qty };
+function createData(ticker, opt_type, opt_side, strike, expiry, price, qty) {
+  return { ticker, opt_type, strike, opt_side, expiry, price, qty };
 }
 
 const useStyles = makeStyles({
@@ -97,6 +103,7 @@ export default function StickyHeadTable() {
     console.log("VALUES", values.values);
     // optionsState.push(values)
     // console.log("VALUES State", optionsState)
+    // console.log(rows);
   });
 
   // Table values here
@@ -109,48 +116,95 @@ export default function StickyHeadTable() {
   ];
 
   const rows = [];
+  let ctr = 0;
+  let net_debit_credit = 0;
+  let change_counter;
   if (values.values.length > 0) {
+    // console.log('ROWS', rows.length)
     values.values[2].map(data => {
-      const ticker = "BANKNIFTY";
-      let opt_type = "";
-      if (data[1] === "call_ask") {
-        opt_type = "CE";
-      }
-      if (data[1] === "call_bid") {
-        opt_type = "CE";
-      }
-      if (data[1] === "puts_ask") {
-        opt_type = "PE";
-      }
-      if (data[1] === "puts_bid") {
-        opt_type = "PE";
+      for (let i = 0; i < rows.length; i++) {
+        console.log("DATA", data);
+        console.log("ROWSSS", rows);
+        // If values are from CE, BUY
+        if (
+          data[0].strike === rows[i].strike &&
+          data[1] === "call_ask" &&
+          data[2] === rows[i].opt_side &&
+          data[3] === rows[i].opt_type
+        ) {
+          change_counter = i;
+        }
+        // if values are from CE, SELL
+        if (
+          data[0].strike === rows[i].strike &&
+          data[1] === "call_bid" &&
+          data[2] === rows[i].opt_side &&
+          data[3] === rows[i].opt_type
+        ) {
+          change_counter = i;
+        }
+        // If values are from PE, BUY
+        if (
+          data[0].strike === rows[i].strike &&
+          data[1] === "puts_ask" &&
+          data[2] === rows[i].opt_side &&
+          data[3] === rows[i].opt_type
+        ) {
+          change_counter = i;
+        }
+
+        // If values are from PE, SELL
+        if (
+          data[0].strike === rows[i].strike &&
+          data[1] === "puts_bid" &&
+          data[2] === rows[i].opt_side &&
+          data[3] === rows[i].opt_type
+        ) {
+          change_counter = i;
+        }
       }
 
+      const ticker = "BANKNIFTY";
+      let opt_type = "";
+      let opt_side = "";
       const strike = data[0].strike;
       const expiry = data[0].expiry;
       let price = 0;
+      let qty = 0;
       if (data[1] === "call_ask") {
+        opt_type = "CE";
+        opt_side = "BUY";
         price -= data[0].call_ask;
+        qty += 1;
       }
       if (data[1] === "call_bid") {
+        opt_type = "CE";
+        opt_side = "SELL";
         price += data[0].call_bid;
+        qty -= 1;
       }
       if (data[1] === "puts_ask") {
+        opt_type = "PE";
+        opt_side = "BUY";
         price -= data[0].puts_ask;
+        qty += 1;
       }
       if (data[1] === "puts_bid") {
+        opt_type = "PE";
+        opt_side = "SELL";
         price += data[0].puts_bid;
+        qty -= 1;
       }
-      const qty = 2;
-
       rows.push({
         ticker,
         opt_type,
+        opt_side,
         strike,
         expiry,
         price,
         qty
       });
+      ctr++;
     });
   }
 
