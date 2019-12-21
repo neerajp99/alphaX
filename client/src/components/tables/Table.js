@@ -10,7 +10,7 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import { getValues } from "../../actions/valuesAction";
 import { useDispatch, useSelector } from "react-redux";
-const net = require("net");
+import { getGraphData } from "../../actions/graphsAction"
 
 const columns = [
   {
@@ -105,6 +105,9 @@ export default function StickyHeadTable() {
   const dispatch = useDispatch();
   // Toggle css state
   const [toggleCSSState, setValue] = React.useState("lmao3");
+
+  // Graph Data
+  const graphValues = useSelector(state => state.graphValues);
 
   React.useEffect(() => {
     if (netDebitCreditState[0] > 0) {
@@ -242,6 +245,7 @@ export default function StickyHeadTable() {
   // Send Request to the python server for risk profile values
   const sendRiskProfileValues = () => {
     const socket = new WebSocket("ws://localhost:9090");
+    let graphData;
 
     socket.addEventListener("open", event => {
       const toSend = {
@@ -287,7 +291,11 @@ export default function StickyHeadTable() {
 
     // Listen for messages
     socket.addEventListener("message", event => {
-      console.log("Message from server ", event.data);
+      // console.log("Message from server ", event.data);
+      graphData = JSON.parse(event.data)
+      // console.log(graphData)
+      // Dispatch action with grah data
+      dispatch(getGraphData(graphData))
     });
   };
 
