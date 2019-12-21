@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import tickers from "../utils/symbols.json";
 import escapeRegExp from "escape-string-regexp";
 import EnhancedTableHead from "./tables/Tables";
-import StickyHeadTable from "./tables/Table"
-import RiskProfile from './graphs/RiskProfile'
+import StickyHeadTable from "./tables/Table";
+import RiskProfile from "./graphs/RiskProfile";
 
 class Landing extends Component {
   state = {
@@ -152,7 +152,7 @@ class Landing extends Component {
                 role="tabpanel"
                 aria-labelledby="nav-home-tab"
               >
-                <EnhancedTableHead/>
+                <EnhancedTableHead />
               </div>
 
               <div
@@ -161,7 +161,7 @@ class Landing extends Component {
                 role="tabpanel"
                 aria-labelledby="nav-contact-tab"
               >
-                <RiskProfile/>
+                <RiskProfile />
               </div>
               <div
                 className="tab-pane fade mafia_main_content"
@@ -182,12 +182,15 @@ class Landing extends Component {
             </div>
           </div>
           <div className="landing_right_bottom_main">
-            <button className="ticker_name_button">{this.state.currentTicker}</button>
-            <h5 className="positions_tasks_heading">Positions and Simulated Tasks</h5>
-            /*{<hr className="positions_tasks_hr"/>}*/
-            <br/>
+            <button className="ticker_name_button">
+              {this.state.currentTicker}
+            </button>
+            <h5 className="positions_tasks_heading">
+              Positions and Simulated Tasks
+            </h5>
+            /*{<hr className="positions_tasks_hr" />}*/
+            <br />
             <StickyHeadTable />;
-
           </div>
         </div>
       </div>
