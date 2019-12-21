@@ -336,7 +336,7 @@ select:focus,
 .get_graph_button {
   position: absolute;
   margin-top: -3% !important;
-  margin-left: -30% !important;
+  margin-left: -20% !important;
   height: 5vh;
   font-family: "Raleway", serif;
   background: transparent;

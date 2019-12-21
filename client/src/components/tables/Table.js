@@ -10,7 +10,8 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import { getValues } from "../../actions/valuesAction";
 import { useDispatch, useSelector } from "react-redux";
-import { getGraphData } from "../../actions/graphsAction"
+import { getGraphData } from "../../actions/graphsAction";
+import moment from "moment";
 
 const columns = [
   {
@@ -248,54 +249,45 @@ export default function StickyHeadTable() {
     let graphData;
 
     socket.addEventListener("open", event => {
+      const final_graph_data_array = [];
+      for (let i = 1; i < rows.length; i++) {
+        const underlying = rows[i].ticker.toLowerCase();
+        const quantity = rows[i].qty;
+        const opt_type = rows[i].opt_type.slice(0, 1);
+        const strike = rows[i].strike;
+        const price = rows[i].price;
+        let expiry1 = moment(rows[i].expiry, "DD/MM/YYYY").format("D MMMM Y");
+        expiry1 = expiry1.toLowerCase();
+        const expiry =
+          expiry1.slice(0, 2) + expiry1.slice(3, 6) + expiry1.slice(12, 16);
+        final_graph_data_array.push({
+          underlying: underlying,
+          expiry: expiry,
+          quantity: quantity,
+          opt_type: opt_type,
+          strike: strike,
+          price: price
+        });
+      }
       const toSend = {
-        no_legs: 4,
-        Legs: [
-          {
-            underlying: "banknifty",
-            expiry: "26dec2019",
-            quantity: 1,
-            opt_type: "C",
-            strike: 32200,
-            price: 300.85
-          },
-          {
-            underlying: "banknifty",
-            expiry: "26dec2019",
-            quantity: 1,
-            opt_type: "P",
-            strike: 32200,
-            price: 167.9
-          },
-          {
-            underlying: "banknifty",
-            expiry: "26dec2019",
-            quantity: 2,
-            opt_type: "P",
-            strike: 31300,
-            price: 18.2
-          },
-          {
-            underlying: "banknifty",
-            expiry: "26dec2019",
-            quantity: -3,
-            opt_type: "P",
-            strike: 30900,
-            price: 10.0
-          }
-        ],
-        net_credit_debit: 0
+        no_legs: rows.length - 1,
+        Legs: JSON.parse(JSON.stringify(final_graph_data_array)),
+        net_credit_debit: netDebitCreditState[0]
       };
+      console.log("TOOOO SEND", toSend);
+      // const check = JSON.stringify(final_graph_data_array)
+      // const finalCheck = check.slice(1, check.length - 1)
+      // console.log(JSON.parse(check))
       socket.send(JSON.stringify(toSend));
     });
 
     // Listen for messages
     socket.addEventListener("message", event => {
       // console.log("Message from server ", event.data);
-      graphData = JSON.parse(event.data)
+      graphData = JSON.parse(event.data);
       // console.log(graphData)
       // Dispatch action with grah data
-      dispatch(getGraphData(graphData))
+      dispatch(getGraphData(graphData));
     });
   };
 
