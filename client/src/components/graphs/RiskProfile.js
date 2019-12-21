@@ -3,345 +3,71 @@ import { render } from "react-dom";
 import HighchartsReact from "highcharts-react-official";
 // Import Highcharts
 import Highcharts from "highcharts/highcharts.src.js";
+// Import Action creator and dispatch
+import { getGraphData } from "../../actions/graphsAction";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 class RiskProfile extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      chartOptions: {
-        series: [
-          {
-            name: "Now",
-            data: [
-              842.7379319,
-              842.7379319,
-              842.7379319,
-              842.7379318,
-              842.7379318,
-              842.7379317,
-              842.7379316,
-              842.7379311,
-              842.73793,
-              842.7379274,
-              842.7379215,
-              842.7379084,
-              842.7378797,
-              842.7378188,
-              842.7376923,
-              842.7374356,
-              842.7369266,
-              842.7359403,
-              842.7340715,
-              842.7306082,
-              842.7243293,
-              842.71319,
-              842.6938457,
-              842.6609538,
-              842.6061784,
-              842.5168135,
-              842.3739379,
-              842.1500221,
-              841.8059305,
-              841.2873043,
-              840.5203731,
-              839.4073294,
-              837.8214994,
-              835.6026558,
-              832.5529222,
-              828.4338037,
-              822.9649316,
-              815.8251064,
-              806.6561708,
-              795.0701383,
-              780.659853,
-              763.0132987,
-              741.7315209,
-              716.4500076,
-              686.8632828,
-              652.752386,
-              614.0147702,
-              570.6958774,
-              523.0211555,
-              471.4265315,
-              416.5843961,
-              359.4211558,
-              301.1216632,
-              243.1157124,
-              187.0426221,
-              134.6919337,
-              87.92132745,
-              48.55660432,
-              18.28228867,
-              -1.465791849,
-              -9.593462736,
-              -5.415221455,
-              11.31302566,
-              40.39913949,
-              81.25610237,
-              132.9728782,
-              194.4045501,
-              264.2699163,
-              341.2452101,
-              424.0448081,
-              511.4830535,
-              602.5148638,
-              696.2559427,
-              791.9857155,
-              889.1373707,
-              987.2796873,
-              1086.09488,
-              1185.355803,
-              1284.904807,
-              1384.635542,
-              1484.478218,
-              1584.388246,
-              1684.337875,
-              1784.310261,
-              1884.295436,
-              1984.287641,
-              2084.283625,
-              2184.281599,
-              2284.280597,
-              2384.280112,
-              2484.279881,
-              2584.279774
-            ]
-          },
-          {
-            name: "Expiry",
-            color: "green",
-            data: [
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.35,
-              844.3463448,
-              744.35,
-              644.35,
-              544.35,
-              444.35,
-              344.35,
-              244.35,
-              144.35,
-              44.34999999,
-              -55.65000001,
-              -155.65,
-              -255.65,
-              -355.65,
-              -455.6444619,
-              -355.65,
-              -255.65,
-              -155.65,
-              -55.64999999,
-              44.35000001,
-              144.35,
-              244.35,
-              344.35,
-              444.35,
-              544.35,
-              644.35,
-              744.35,
-              844.35,
-              944.35,
-              1044.35,
-              1144.35,
-              1244.35,
-              1344.35,
-              1444.35,
-              1544.35,
-              1644.35,
-              1744.35,
-              1844.35,
-              1944.35,
-              2044.35,
-              2144.35,
-              2244.35,
-              2344.35,
-              2444.35,
-              2544.35
-            ]
-          }
-        ],
-        chart: {
-          backgroundColor: "#1f2531",
-          type: "line"
+  state = {
+    currentData: [],
+    expiryData: [],
+    pricesData: [],
+    x: "",
+    chartOptions: {
+      series: [
+        {
+          name: "Now",
+          data: []
         },
-        credits: {
-          enabled: false
-        },
+        {
+          name: "Expiry",
+          color: "green",
+          data: []
+        }
+      ],
+      chart: {
+        backgroundColor: "#1f2531",
+        type: "line"
+      },
+      credits: {
+        enabled: false
+      },
+      title: {
+        text: "Risk Profile Graph",
+        align: "center",
+        fontFamily: "Lucida Grande",
+        x: 70,
+        style: {
+          color: "#fff"
+        }
+      },
+      yAxis: {
         title: {
-          text: "Risk Profile Graph",
-          align: "center",
-          fontFamily: "Lucida Grande",
-          x: 70,
+          enabled: true,
+          text: "Prices",
+          style: {
+            fontWeight: "normal",
+            color: "#fff"
+          }
+        },
+        labels: {
+          style: {
+            color: "#fff"
+          }
+        }
+      },
+      xAxis: {
+        labels: {
           style: {
             color: "#fff"
           }
         },
-        yAxis: {
-          title: {
-            enabled: true,
-            text: "Prices",
-            style: {
-              fontWeight: "normal",
-              color: "#fff"
-            }
-          },
-          labels: {
-            style: {
-              color: "#fff"
-            }
-          }
-        },
-        xAxis: {
-          labels: {
-            style: {
-              color: "#fff"
-            }
-          },
 
-          categories: [
-            26100,
-            26200,
-            26300,
-            26400,
-            26500,
-            26600,
-            26700,
-            26800,
-            26900,
-            27000,
-            27100,
-            27200,
-            27300,
-            27400,
-            27500,
-            27600,
-            27700,
-            27800,
-            27900,
-            28000,
-            28100,
-            28200,
-            28300,
-            28400,
-            28500,
-            28600,
-            28700,
-            28800,
-            28900,
-            29000,
-            29100,
-            29200,
-            29300,
-            29400,
-            29500,
-            29600,
-            29700,
-            29800,
-            29900,
-            30000,
-            30100,
-            30200,
-            30300,
-            30400,
-            30500,
-            30600,
-            30700,
-            30800,
-            30900,
-            31000,
-            31100,
-            31200,
-            31300,
-            31400,
-            31500,
-            31600,
-            31700,
-            31800,
-            31900,
-            32000,
-            32100,
-            32200,
-            32300,
-            32400,
-            32500,
-            32600,
-            32700,
-            32800,
-            32900,
-            33000,
-            33100,
-            33200,
-            33300,
-            33400,
-            33500,
-            33600,
-            33700,
-            33800,
-            33900,
-            34000,
-            34100,
-            34200,
-            34300,
-            34400,
-            34500,
-            34600,
-            34700,
-            34800,
-            34900,
-            35000,
-            35100,
-            35200
-          ]
-        }
+        categories: []
       }
-    };
-  }
+    }
+  };
 
   afterChartCreated = chart => {
     this.internalChart = chart;
@@ -349,19 +75,130 @@ class RiskProfile extends React.PureComponent {
   };
 
   componentDidUpdate() {
-    //this.internalChart.getMargins(); // redraw
+    // this.internalChart.getMargins(); // redraw
     this.internalChart.reflow();
+
+    this.setState({
+      currentData: this.props.graphValues.graphValues.current_payoff,
+      expiryData: this.props.graphValues.graphValues.expiry_payoff,
+      pricesData: this.props.graphValues.graphValues.underlying_price
+      // chartOptions.series[1].data:
+    });
+
+    // console.log(this.state.graphData);
+    // console.log(this.props.graphValues.graphValues);
+
+    // Updating Now Data Frame
+    if (
+      typeof this.state.currentData !== "undefined" &&
+      this.state.currentData.length > 0
+    ) {
+      this.state.currentData.map(data => {
+        this.state.chartOptions.series[0].data.push(data);
+      });
+      // this.state.chartOptions.series[1].data.push(this.props.graphValues.graphValues.expiry_payoff);
+    }
+
+    // Updating Expiry Data Frame
+    if (
+      typeof this.state.expiryData !== "undefined" &&
+      this.state.expiryData.length > 0
+    ) {
+      this.state.expiryData.map(data => {
+        this.state.chartOptions.series[1].data.push(data);
+      });
+      // this.state.chartOptions.series[1].data.push(this.props.graphValues.graphValues.expiry_payoff);
+    }
+
+    // Updating Prices Data Frame
+    if (
+      typeof this.state.pricesData !== "undefined" &&
+      this.state.pricesData.length > 0
+    ) {
+      this.state.pricesData.map(data => {
+        this.state.chartOptions.xAxis.categories.push(data);
+      });
+
+      // this.state.chartOptions.series[1].data.push(this.props.graphValues.graphValues.expiry_payoff);
+      // }
+      // if (this.props){
+      //   let nowCopy = JSON.parse(JSON.stringify(this.state.chartOptions))
+      //   nowCopy.xAxis.categories = this.props.graphValues.graphValues.current_payoff
+      //   this.setState({
+      //     chartOptions: nowCopy
+      //   })
+      // console.log('NOW', nowCopy)
+    }
+    console.log(this.state);
+  }
+  componentDidMount() {
+    // this.state.chartOptions.series[1].data.push(this.props.graphValues.graphValues.expiry_payoff);
+    // this.forceUpdate()
   }
 
   render() {
     const chart = this.internalChart,
       customLabels = [];
 
+    const chartOptions = {
+      series: [
+        {
+          name: "Now",
+          data: this.state.currentData
+        },
+        {
+          name: "Expiry",
+          color: "green",
+          data: this.state.expiryData
+        }
+      ],
+      chart: {
+        backgroundColor: "#1f2531",
+        type: "line"
+      },
+      credits: {
+        enabled: false
+      },
+      title: {
+        text: "Risk Profile Graph",
+        align: "center",
+        fontFamily: "Lucida Grande",
+        x: 70,
+        style: {
+          color: "#fff"
+        }
+      },
+      yAxis: {
+        title: {
+          enabled: true,
+          text: "Prices",
+          style: {
+            fontWeight: "normal",
+            color: "#fff"
+          }
+        },
+        labels: {
+          style: {
+            color: "#fff"
+          }
+        }
+      },
+      xAxis: {
+        labels: {
+          style: {
+            color: "#fff"
+          }
+        },
+
+        categories: this.state.pricesData
+      }
+    };
+
     return (
       <div>
         <HighchartsReact
           highcharts={Highcharts}
-          options={this.state.chartOptions}
+          options={chartOptions}
           callback={this.afterChartCreated}
         />
         {customLabels}
@@ -370,4 +207,11 @@ class RiskProfile extends React.PureComponent {
   }
 }
 
-export default RiskProfile;
+const mapStateToProps = state => ({
+  graphValues: state.graphValues
+});
+
+export default connect(
+  mapStateToProps,
+  { getGraphData }
+)(withRouter(RiskProfile));
