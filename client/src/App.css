@@ -187,6 +187,7 @@ select:focus,
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active:hover {
   color: #498fde !important;
+
 }
 .mafia_main_content {
   color: #fff;
@@ -325,7 +326,8 @@ select:focus,
   cursor: pointer;
 }
 .MuiTableCell-root:hover {
-  background: #1b202a;
+  background: #161b25;
+  /* color: #1b202a; */
 }
 .lmao:nth-child(1) {
   display: none !important;
@@ -352,4 +354,7 @@ select:focus,
   font-family: "Raleway", serif;
   margin-left: 2% !important;
   font-weight: 400;
+}
+.table_middle_values{
+  background: #2d415f !important;
 }
