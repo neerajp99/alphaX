@@ -90,14 +90,14 @@ data.map(d => {
   const puts_theta = d["Theta__1"];
 
   rows.push({
-    call_bid,
-    call_ask,
     call_volume,
     call_iv,
     call_delta,
     call_gamma,
     call_vega,
     call_theta,
+    call_bid,
+    call_ask,
     strike,
     expiry,
     puts_bid,
@@ -143,8 +143,7 @@ const headCells = [
     numeric: true,
     disablePadding: true
   },
-  { id: "call_bid", numeric: true, disablePadding: false, label: "Call Bid" },
-  { id: "call_ask", numeric: true, disablePadding: false, label: "Call Ask" },
+
   {
     id: "call_volume",
     numeric: true,
@@ -171,6 +170,8 @@ const headCells = [
     disablePadding: false,
     label: "Call Theta"
   },
+  { id: "call_bid", numeric: true, disablePadding: false, label: "Call Bid" },
+  { id: "call_ask", numeric: true, disablePadding: false, label: "Call Ask" },
   { id: "strike", numeric: true, disablePadding: false, label: "Strike" },
   { id: "Expiry", numeric: false, disablePadding: false, label: "Expiry" },
   { id: "puts_bid", numeric: true, disablePadding: false, label: "Puts Bid" },
@@ -441,6 +442,8 @@ export const EnhancedTable = () => {
             aria-labelledby="tableTitle"
             size={dense ? "small" : "medium"}
             aria-label="enhanced table"
+            stickyHeader
+            aria-label="sticky table"
           >
             <EnhancedTableHead
               classes={classes}
@@ -483,6 +486,13 @@ export const EnhancedTable = () => {
                       >
                         {row.name}
                       </TableCell>
+
+                      <TableCell align="right">{row.call_volume}</TableCell>
+                      <TableCell align="right">{row.call_iv}</TableCell>
+                      <TableCell align="right">{row.call_delta}</TableCell>
+                      <TableCell align="right">{row.call_gamma}</TableCell>
+                      <TableCell align="right">{row.call_vega}</TableCell>
+                      <TableCell align="right">{row.call_theta}</TableCell>
                       <TableCell
                         align="right"
                         onClick={onClickSaveValue.bind(
@@ -507,14 +517,8 @@ export const EnhancedTable = () => {
                       >
                         {row.call_ask}
                       </TableCell>
-                      <TableCell align="right">{row.call_volume}</TableCell>
-                      <TableCell align="right">{row.call_iv}</TableCell>
-                      <TableCell align="right">{row.call_delta}</TableCell>
-                      <TableCell align="right">{row.call_gamma}</TableCell>
-                      <TableCell align="right">{row.call_vega}</TableCell>
-                      <TableCell align="right">{row.call_theta}</TableCell>
-                      <TableCell align="right">{row.strike}</TableCell>
-                      <TableCell align="right">{row.expiry}</TableCell>
+                      <TableCell align="right" className="table_middle_values">{row.strike}</TableCell>
+                      <TableCell align="right" className="table_middle_values">{row.expiry}</TableCell>
                       <TableCell
                         align="right"
                         onClick={onClickSaveValue.bind(

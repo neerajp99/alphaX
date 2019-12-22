@@ -245,7 +245,7 @@ export default function StickyHeadTable() {
 
   // Send Request to the python server for risk profile values
   const sendRiskProfileValues = () => {
-    const socket = new WebSocket("ws://localhost:9090");
+    const socket = new WebSocket("ws://34.67.192.105:9090");
     let graphData;
 
     socket.addEventListener("open", event => {
