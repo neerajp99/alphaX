@@ -133,13 +133,14 @@ export default function StickyHeadTable() {
   let net_debit_credit = 0;
   let change_counter = 1;
   let data_price;
+  let spliceCtr = 0;
+  let checkCtr = 0;
   if (values.values.length > 0) {
     // console.log('ROWS', rows.length)
     values.values[2].map(data => {
       for (let i = 0; i < rows.length; i++) {
         // console.log("DATA", data);
         // console.log("VALUE OF EYE", i);
-        console.log(rows);
 
         if (data[0].strike === rows[i].strike && data[3] === rows[i].opt_type) {
           const prices = rows[i].price;
@@ -157,7 +158,7 @@ export default function StickyHeadTable() {
               rows[i].opt_side = "SELL";
             }
             if (rows[i].qty === 0) {
-              rows.splice(i, 1);
+              spliceCtr = i;
             }
           }
           if (data[1] == "call_bid") {
@@ -174,13 +175,9 @@ export default function StickyHeadTable() {
               rows[i].opt_side = "SELL";
             }
             if (rows[i].qty === 0) {
-              rows.splice(i, 1);
+              spliceCtr = i;
             }
           }
-        }
-
-        if (data[0].strike === rows[i].strike && data[3] === rows[i].opt_type) {
-          const prices = rows[i].price;
           if (data[1] == "puts_ask") {
             rows[i].price -= data[0].puts_ask;
             rows[i].qty += 1;
@@ -194,6 +191,9 @@ export default function StickyHeadTable() {
             if (rows[i].qty < 0) {
               rows[i].opt_side = "SELL";
             }
+            // if (rows[i].qty === 0) {
+            //   spliceCtr = i;
+            // }
             if (rows[i].qty === 0) {
               rows.splice(i, 1);
             }
@@ -211,11 +211,21 @@ export default function StickyHeadTable() {
             if (rows[i].qty < 0) {
               rows[i].opt_side = "SELL";
             }
+            // if (rows[i].qty === 0) {
+            //   spliceCtr = i;
+            // }
             if (rows[i].qty === 0) {
               rows.splice(i, 1);
             }
           }
-        } else {
+          if (spliceCtr !== 0) {
+            rows.splice(i, 1);
+            spliceCtr = 0;
+          }
+        }
+
+        // Splice rows array if the quantity value is 0
+        else {
           change_counter = 0;
         }
       }
