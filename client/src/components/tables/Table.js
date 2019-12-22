@@ -116,6 +116,7 @@ export default function StickyHeadTable() {
     } else {
       setValue("lmao3");
     }
+    console.log(rows)
   });
 
   const rows = [];
@@ -189,7 +190,7 @@ export default function StickyHeadTable() {
         Math.sign(rows[change_counter].qty) === -1
           ? (rows[change_counter].qty -= 1)
           : (rows[change_counter].qty += 1);
-        netDebitCreditState[0] += data_price;
+        netDebitCreditState[0] += data_price * -1;
         change_counter = undefined;
         data_price = undefined;
       } else {
@@ -233,7 +234,7 @@ export default function StickyHeadTable() {
           price,
           qty
         });
-        netDebitCreditState[0] += price;
+        netDebitCreditState[0] += price * -1;
       }
 
       ctr++;
