@@ -116,7 +116,7 @@ export default function StickyHeadTable() {
     } else {
       setValue("lmao3");
     }
-    console.log(rows)
+    console.log(rows);
   });
 
   const rows = [];
@@ -131,69 +131,96 @@ export default function StickyHeadTable() {
   };
   let ctr = 0;
   let net_debit_credit = 0;
-  let change_counter;
+  let change_counter = 1;
   let data_price;
   if (values.values.length > 0) {
     // console.log('ROWS', rows.length)
     values.values[2].map(data => {
       for (let i = 0; i < rows.length; i++) {
-        console.log("DATA", data);
-        console.log("VALUE OF EYE", i);
-        console.log(rows[i]);
+        // console.log("DATA", data);
+        // console.log("VALUE OF EYE", i);
+        console.log(rows);
 
-        if (
-          data[0].strike === rows[i].strike &&
-          data[1] === "call_ask" &&
-          data[2] === rows[i].opt_side &&
-          data[3] === rows[i].opt_type
-        ) {
-          console.log("kakak");
-          change_counter = i;
-          data_price = -data[0].call_ask;
-        }
-        // if values are from CE, SELL
-        if (
-          data[0].strike === rows[i].strike &&
-          data[1] === "call_bid" &&
-          data[2] === rows[i].opt_side &&
-          data[3] === rows[i].opt_type
-        ) {
-          change_counter = i;
-          data_price = data[0].call_bid;
-        }
-        // If values are from PE, BUY
-        if (
-          data[0].strike === rows[i].strike &&
-          data[1] === "puts_ask" &&
-          data[2] === rows[i].opt_side &&
-          data[3] === rows[i].opt_type
-        ) {
-          change_counter = i;
-          data_price = -data[0].puts_ask;
+        if (data[0].strike === rows[i].strike && data[3] === rows[i].opt_type) {
+          const prices = rows[i].price;
+          if (data[1] == "call_ask") {
+            rows[i].price -= data[0].call_ask;
+            rows[i].qty += 1;
+            netDebitCreditState[0] -= data[0].call_ask * -1;
+            // i = undefined;
+            data_price = undefined;
+            change_counter = 1;
+            if (rows[i].qty > 0) {
+              rows[i].opt_side = "BUY";
+            }
+            if (rows[i].qty < 0) {
+              rows[i].opt_side = "SELL";
+            }
+            if (rows[i].qty === 0) {
+              rows.splice(i, 1);
+            }
+          }
+          if (data[1] == "call_bid") {
+            rows[i].price += data[0].call_bid;
+            rows[i].qty -= 1;
+            netDebitCreditState[0] += data[0].call_bid * -1;
+            // i = undefined;
+            data_price = undefined;
+            change_counter = 1;
+            if (rows[i].qty > 0) {
+              rows[i].opt_side = "BUY";
+            }
+            if (rows[i].qty < 0) {
+              rows[i].opt_side = "SELL";
+            }
+            if (rows[i].qty === 0) {
+              rows.splice(i, 1);
+            }
+          }
         }
 
-        // If values are from PE, SELL
-        if (
-          data[0].strike === rows[i].strike &&
-          data[1] === "puts_bid" &&
-          data[2] === rows[i].opt_side &&
-          data[3] === rows[i].opt_type
-        ) {
-          change_counter = i;
-          data_price = data[0].puts_bid;
+        if (data[0].strike === rows[i].strike && data[3] === rows[i].opt_type) {
+          const prices = rows[i].price;
+          if (data[1] == "puts_ask") {
+            rows[i].price -= data[0].puts_ask;
+            rows[i].qty += 1;
+            netDebitCreditState[0] -= data[0].puts_ask * -1;
+            // i = undefined;
+            data_price = undefined;
+            change_counter = 1;
+            if (rows[i].qty > 0) {
+              rows[i].opt_side = "BUY";
+            }
+            if (rows[i].qty < 0) {
+              rows[i].opt_side = "SELL";
+            }
+            if (rows[i].qty === 0) {
+              rows.splice(i, 1);
+            }
+          }
+          if (data[1] == "puts_bid") {
+            rows[i].price += data[0].puts_bid;
+            rows[i].qty -= 1;
+            netDebitCreditState[0] += data[0].puts_bid * -1;
+            // i = undefined;
+            data_price = undefined;
+            change_counter = 1;
+            if (rows[i].qty > 0) {
+              rows[i].opt_side = "BUY";
+            }
+            if (rows[i].qty < 0) {
+              rows[i].opt_side = "SELL";
+            }
+            if (rows[i].qty === 0) {
+              rows.splice(i, 1);
+            }
+          }
+        } else {
+          change_counter = 0;
         }
       }
 
-      if (change_counter) {
-        const prices = rows[change_counter].price;
-        rows[change_counter].price += data_price;
-        Math.sign(rows[change_counter].qty) === -1
-          ? (rows[change_counter].qty -= 1)
-          : (rows[change_counter].qty += 1);
-        netDebitCreditState[0] += data_price * -1;
-        change_counter = undefined;
-        data_price = undefined;
-      } else {
+      if (change_counter === 0) {
         const ticker = "BANKNIFTY";
         let opt_type = "";
         let opt_side = "";
@@ -235,6 +262,7 @@ export default function StickyHeadTable() {
           qty
         });
         netDebitCreditState[0] += price * -1;
+        change_counter = 1;
       }
 
       ctr++;
