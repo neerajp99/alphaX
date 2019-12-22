@@ -141,6 +141,12 @@ class RiskProfile extends React.PureComponent {
       customLabels = [];
 
     const chartOptions = {
+      legend: {
+      itemStyle: {
+          color: '#828a98',
+          fontWeight: 'bold'
+      }
+  },
       series: [
         {
           name: "Now",
@@ -194,6 +200,8 @@ class RiskProfile extends React.PureComponent {
             color: "#fff"
           }
         },
+
+
 
         categories: this.state.pricesData
       }
