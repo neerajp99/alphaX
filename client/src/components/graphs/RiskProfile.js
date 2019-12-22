@@ -149,6 +149,11 @@ class RiskProfile extends React.PureComponent {
         {
           name: "Expiry",
           color: "green",
+          labelFormat: {
+            style:{
+              color: "#fff"
+            }
+          },
           data: this.state.expiryData
         }
       ],

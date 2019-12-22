@@ -169,7 +169,7 @@ class Landing extends Component {
                 role="tabpanel"
                 aria-labelledby="nav-contact-tab"
               >
-                koishore
+                Coming soon..
               </div>
               <div
                 className="tab-pane fade mafia_main_content"
@@ -177,7 +177,7 @@ class Landing extends Component {
                 role="tabpanel"
                 aria-labelledby="nav-contact-tab"
               >
-                mitaals
+                Coming soon..
               </div>
             </div>
           </div>

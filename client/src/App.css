@@ -358,3 +358,6 @@ select:focus,
 .table_middle_values{
   background: #2d415f !important;
 }
+.highcharts-color-0{
+  color: #fff !important;
+}

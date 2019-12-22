@@ -387,7 +387,7 @@ export default function StickyHeadTable() {
       />
       <span>
         <h6 className="net_Debit_credit_heading">
-          Net Debit/Credit: {netDebitCreditState[0]}
+          Net Debit/Credit: {netDebitCreditState[0] * -1}
         </h6>
       </span>
       <button className="get_graph_button" onClick={sendRiskProfileValues}>
