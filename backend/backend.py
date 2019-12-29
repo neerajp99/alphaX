@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 # coding: utf-8
-
-# In[1]:
-
-
 # Import Libraries
 import websockets
 import asyncio
@@ -16,11 +12,9 @@ import json
 import threading
 import socket
 
-
-# In[2]:
-
-
 # Dummy function to return underlying ltp
+
+
 def get_underlying_ltp():
     return 32013
 
@@ -28,7 +22,6 @@ def get_underlying_ltp():
 
 
 class Leg():
-
     # Initialize object parameters
     def __init__(self, underlying, expiry, qty, opt_type, strike, price):
         # Option Expiry
@@ -191,10 +184,6 @@ class Leg():
 # # Function Call
 #
 # #### payoff(# of legs, dataframe of legs indexed from 0 and columns = [underlying, expiry, quantity, opt_type, strike, price])
-
-# In[3]:
-
-
 legs_data = pd.DataFrame(
     columns=['underlying', 'expiry', 'quantity', 'opt_type', 'strike', 'price'])
 
@@ -207,14 +196,7 @@ legs_data.loc[1] = ['banknifty', '26dec2019', 1, 'P', 32200, 167.90]
 legs_data.loc[2] = ['banknifty', '26dec2019', 2, 'P', 31300, 18.20]
 legs_data.loc[3] = ['banknifty', '29dec2019', -3, 'P', 30900, 10.00]
 
-
-# In[5]:
-
-
 legs_data
-
-
-# In[6]:
 
 
 def get_payoff_data(no_of_legs, legs_data):
@@ -288,9 +270,6 @@ def get_payoff_data(no_of_legs, legs_data):
 
     # Return dataframe
     return payoff_data
-
-
-# In[10]:
 
 
 # Function Call
