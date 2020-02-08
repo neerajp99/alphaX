@@ -4,6 +4,7 @@ import escapeRegExp from "escape-string-regexp";
 import EnhancedTableHead from "./tables/Tables";
 import StickyHeadTable from "./tables/Table";
 import RiskProfile from "./graphs/RiskProfile";
+import axios from 'axios'
 
 class Landing extends Component {
   state = {
@@ -26,6 +27,9 @@ class Landing extends Component {
       [event.target.name]: event.target.value
     });
   };
+  // On click function to fetch option chain details
+ 
+
   showlingTickers = () => {};
   render() {
     // Check if the user asks for a query, and filter them out, else tickers
@@ -182,7 +186,7 @@ class Landing extends Component {
             </div>
           </div>
           <div className="landing_right_bottom_main">
-            <button className="ticker_name_button">
+            <button className="ticker_name_button" onClick={this.onClick}>
               {this.state.currentTicker}
             </button>
             <h5 className="positions_tasks_heading">
