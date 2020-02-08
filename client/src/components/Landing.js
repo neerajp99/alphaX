@@ -4,7 +4,10 @@ import escapeRegExp from "escape-string-regexp";
 import EnhancedTableHead from "./tables/Tables";
 import StickyHeadTable from "./tables/Table";
 import RiskProfile from "./graphs/RiskProfile";
-import axios from 'axios'
+import axios from "axios";
+import keys from "../config";
+import qs from "qs";
+// import setAuthToken from "./utils/setAuthToken";
 
 class Landing extends Component {
   state = {
@@ -14,6 +17,67 @@ class Landing extends Component {
 
   // on click ticker function to make the changes to the styles
   onClickTicker = event => {
+    // Send a requst to get the expiration for the given ticker
+    const token = "Bearer <Token>";
+    axios.defaults.headers.common["Authorization"] = token;
+    axios({
+      method: "GET",
+      url: "https://sandbox.tradier.com/v1/markets/options/expirations",
+      headers: {
+        "content-type": "application/json"
+      },
+      params: {
+        symbol: `VXX`,
+        // Change the above with the below, if you are using a broker account and not a sandbox
+        // symbol: event.currentTarget.dataset.id,
+        includeAllRoots: "true",
+        strikes: "true"
+      }
+    })
+      .then(response => {
+        const expiry = response.data.expirations.expiration[0].date;
+        axios({
+          method: "GET",
+          url: "https://sandbox.tradier.com/v1/markets/options/chains",
+          headers: {
+            "content-type": "application/json"
+          },
+          params: {
+            symbol: `VXX`,
+            expiration: expiry,
+            greeks: "true"
+          }
+        })
+          .then(response => {
+          console.log(response.data)
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    // request(
+    //   {
+    //     method: "get",
+    //     url: "https://sandbox.tradier.com/v1/markets/options/expirations",
+    //     qs: {
+    //       symbol: event.currentTarget.dataset.id,
+    //       includeAllRoots: "true",
+    //       strikes: "true"
+    //     },
+    //     headers: {
+    //       Authorization: `Bearer ${keys.key}`,
+    //       Accept: "application/json"
+    //     }
+    //   },
+    //   (error, response, body) => {
+    //     console.log(response.statusCode);
+    //     console.log("EXPIRy", body);
+    //   }
+    // );
+
     console.log(event.currentTarget.dataset.id);
     this.setState({
       currentTicker: event.currentTarget.dataset.id
@@ -28,7 +92,6 @@ class Landing extends Component {
     });
   };
   // On click function to fetch option chain details
- 
 
   showlingTickers = () => {};
   render() {
